@@ -1,5 +1,18 @@
 .App {
   text-align: center;
+  .input-box {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    .date-button {
+      color: #61dafb;
+      width: 15%;
+      margin-left: 10px;
+    }
+    button {
+      margin-left: 10px;
+    }
+  }
 }
 
 .todo-container {
@@ -7,7 +20,7 @@
   display: flex;
 }
 .todo-table {
-  width: 700px;
+  width: 800px;
 }
 
 .App-logo {

@@ -19,9 +19,9 @@ app.get("/", (req, res) => {
 
 app.get("/api", (req, res) => {
   res.json([
-    { id: 1, taskName: "task1" },
-    { id: 2, taskName: "task2" },
-    { id: 3, taskName: "task3" },
+    { id: 1, taskName: "task1", taskContent: "test1", deadline: "2021-12-31" },
+    { id: 2, taskName: "task2", taskContent: "test2", deadline: "2021-12-31" },
+    { id: 3, taskName: "task3", taskContent: "test3", deadline: "2021-12-12" },
   ]);
 });
 
