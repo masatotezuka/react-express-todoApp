@@ -11,6 +11,14 @@
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.17.2"
+    "dotenv": "^16.0.0",
+    "express": "^4.17.2",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.15.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.8.0",
+    "eslint-plugin-prettier": "4.0.0",
+    "prettier": "2.5.1"
   }
 }

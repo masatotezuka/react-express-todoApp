@@ -1,15 +1,19 @@
 // https://reffect.co.jp/react/front-react-back-node
 const express = require("express");
 const app = express();
-const port = 8000;
+const router = express.Router();
 const cors = require("cors");
-
+const dotenv = require("dotenv");
+const model = require("./model/index");
+dotenv.config();
+//configの読み込みはdot.env()の後
+const config = require("./config/config");
+const { application } = require("express");
 const corsOptions = {
   origin: "http://localhost:3000",
   optionsSucessStatus: 200,
 };
 // https://www.youtube.com/watch?v=CLaYhEbzIMM&list=RDCMUCoYzQqZNCRqqAomJwJ6yEdg&index=10
-
 app.use(cors(corsOptions));
 // https://qiita.com/chenglin/items/5e563e50d1c32dadf4c3
 
@@ -25,4 +29,4 @@ app.get("/api", (req, res) => {
   ]);
 });
 
-app.listen(port);
+app.listen(8000);
