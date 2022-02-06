@@ -36,7 +36,7 @@ export const TodoAdd = () => {
     setDescription(e.target.value);
   };
   const handleTodoItemSubmit = async (event) => {
-    event.preventDefault();
+    // event.preventDefault();
     const newTodo = [
       {
         title: todoTitle,
