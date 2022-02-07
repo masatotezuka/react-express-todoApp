@@ -1,33 +1,13 @@
 import React from "react";
-import DatePicker from "@mui/lab/DatePicker";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import { useState, useRef } from "react";
+import { BasicDatePicker } from "./DateComponents";
 import axios from "axios";
-
-function BasicDatePicker() {
-  const [value, setValue] = useState(null);
-
-  return (
-    <LocalizationProvider dateAdapter={AdapterDateFns}>
-      <DatePicker
-        label="期限日"
-        value={value}
-        onChange={(newValue) => {
-          setValue(newValue);
-        }}
-        renderInput={(params) => (
-          <TextField {...params} className="date-button" />
-        )}
-      />
-    </LocalizationProvider>
-  );
-}
 
 export const TodoAdd = () => {
   const [todoTitle, setTitle] = useState("");
+  const [value, setValue] = useState(null);
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
   };
@@ -41,18 +21,10 @@ export const TodoAdd = () => {
       {
         title: todoTitle,
         description: todoDescription,
-        // date: this.deadline,
+        deadline: value,
       },
     ];
-    console.log(newTodo);
     await axios.post("http://localhost:8000/api/todoItem", newTodo);
-    // .then((res) => {
-    //   console.log(res.data);
-    //   return res.data;
-    // })
-    // .catch((error) => {
-    //   console.log(error);
-    // });
   };
 
   return (
@@ -73,11 +45,10 @@ export const TodoAdd = () => {
           label="詳細を入力してください。"
           variant="outlined"
           value={todoDescription}
-          // ref={formRef}
           name="description"
           onChange={handleDescriptionChange}
         />
-        <BasicDatePicker></BasicDatePicker>
+        <BasicDatePicker value={value} setValue={setValue}></BasicDatePicker>
         <Button variant="contained" type="submit">
           タスクの追加
         </Button>

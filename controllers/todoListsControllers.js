@@ -3,7 +3,7 @@ const sequelize = require("../model/index");
 const TodoLists = require("../model/todo-lists");
 
 const todoItem = {
-  async fetchAll(req, res, next) {
+  async fetchAllTodo(req, res, next) {
     try {
       const results = await TodoLists.findAll({
         attributes: [
@@ -16,6 +16,36 @@ const todoItem = {
       });
       console.log("database get!");
       return res.status(200).json(results);
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
+  async createTodo(req, res, next) {
+    try {
+      const newTodoData = req.body[0];
+      await TodoLists.create({
+        todoTitle: newTodoData.title,
+        description: newTodoData.description,
+        deadline: newTodoData.deadline,
+        isComplete: false,
+      });
+      const rows = await sequelize.query("select * from TodoLists");
+      console.log(rows);
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  async deleteTodo(req, res, next) {
+    try {
+      const todoId = req.body.id;
+      console.log(todoId);
+      await TodoLists.destroy({
+        where: {
+          id: todoId,
+        },
+      });
+      console.log("comleted delete");
     } catch (error) {
       console.log(error);
     }

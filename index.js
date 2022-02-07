@@ -24,13 +24,10 @@ app.use(cors(corsOptions));
 app.use(express.json()); // application/json
 // app.use(express.urlencoded({ extended: true }));
 
-app.get("/", todoItem.fetchAll);
+app.get("/", todoItem.fetchAllTodo);
 
-app.post("/api/todoItem", async (req, res, next) => {
-  console.log(req.body);
-  res.send("lll");
-  // console.log("hhha");
-});
+app.post("/api/todoItem", todoItem.createTodo);
+app.delete("/api/todoItem", todoItem.deleteTodo);
 
 app.get("/api", (req, res) => {
   res.json([
