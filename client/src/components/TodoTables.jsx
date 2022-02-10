@@ -3,19 +3,29 @@ import CreateIcon from "@mui/icons-material/Create";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { ControlledCheckbox } from "./CheckboxComponents";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
 import TableCell from "@mui/material/TableCell";
+import { TodoContext } from "./TodoProvider";
 
 export const TableCells = ({ row }) => {
   const [checked, setChecked] = useState(false);
+  const setTodoLists = useContext(TodoContext);
   const handleTodoDelete = async (todoId) => {
     console.log(typeof todoId);
     const todoIdData = { id: todoId };
     console.log(`delete${todoIdData}`);
-    await axios.delete("http://localhost:8000/api/todoItem", {
-      data: { id: todoId },
-    });
+    await axios
+      .delete("http://localhost:8000/api/todoItem", {
+        data: { id: todoId },
+      })
+      .then((res) => {
+        console.log(res.data);
+      });
+    const todoDataAfterDelete = await axios.get(
+      "http://localhost:8000/api/todoItem"
+    );
+    setTodoLists(todoDataAfterDelete);
   };
   return (
     <React.Fragment>
