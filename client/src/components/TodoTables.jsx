@@ -6,26 +6,26 @@ import { ControlledCheckbox } from "./CheckboxComponents";
 import { useState, useContext } from "react";
 import axios from "axios";
 import TableCell from "@mui/material/TableCell";
-import { TodoContext } from "./TodoProvider";
+import { TodoContext } from "./TodoBody";
+// import { useDeletetodo } from "./hook";
 
 export const TableCells = ({ row }) => {
-  const [checked, setChecked] = useState(false);
-  const setTodoLists = useContext(TodoContext);
+  // const { handleTodoDelete } = useDeletetodo();
+  const [checked, setChecked] = useState(row.isComplete);
+  console.log(row.isComplete);
+  const [todoLists, setTodoLists] = useContext(TodoContext);
   const handleTodoDelete = async (todoId) => {
-    console.log(typeof todoId);
     const todoIdData = { id: todoId };
-    console.log(`delete${todoIdData}`);
     await axios
       .delete("http://localhost:8000/api/todoItem", {
-        data: { id: todoId },
+        data: todoIdData,
       })
       .then((res) => {
-        console.log(res.data);
+        const deleteId = res.data.deleteId;
+        const newTodoLists = todoLists.filter((item) => deleteId !== item.id);
+        console.log(newTodoLists);
+        setTodoLists(newTodoLists);
       });
-    const todoDataAfterDelete = await axios.get(
-      "http://localhost:8000/api/todoItem"
-    );
-    setTodoLists(todoDataAfterDelete);
   };
   return (
     <React.Fragment>

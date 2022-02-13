@@ -1,6 +1,6 @@
 import React from "react";
 // import axios from "axios";
-import { useState, useEffect, useContext, createContext } from "react";
+import { useState, useEffect, createContext } from "react";
 import { TodoAdd } from "./TodoAdd";
 import { TodoListsTables } from "./TodoLists";
 // import { TodoContext } from "./TodoProvider";
@@ -23,21 +23,18 @@ export const TodoBody = () => {
   useEffect(() => {
     const getTodoLists = async () => {
       try {
-        const response = await fetch("http://localhost:8000");
+        const response = await fetch("http://localhost:8000/api/todoItem");
         const jsondata = await response.json();
-        console.log(jsondata);
-        console.log(todoLists);
         await setTodoLists(jsondata);
-        console.log(todoLists);
       } catch (error) {
         console.log(error);
       }
     };
     getTodoLists();
-  }, [setTodoLists]);
+  }, []);
   return (
     <React.Fragment>
-      <TodoContext.Provider value={setTodoLists}>
+      <TodoContext.Provider value={[todoLists, setTodoLists]}>
         <TodoAdd></TodoAdd>
         <h2>未完了リスト</h2>
         <div className="todo-container">

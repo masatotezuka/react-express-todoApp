@@ -2,25 +2,22 @@ const Sequelize = require("sequelize");
 const sequelize = require("../model/index");
 const TodoLists = require("../model/todo-lists");
 
+const getAllTodoItems = async () => {
+  return await TodoLists.findAll({
+    attributes: ["id", "todoTitle", "description", "deadline", "isComplete"],
+  });
+};
+
 const todoItem = {
   async fetchAllTodo(req, res, next) {
     try {
-      const results = await TodoLists.findAll({
-        attributes: [
-          "id",
-          "todoTitle",
-          "description",
-          "deadline",
-          "isComplete",
-        ],
-      });
       console.log("database get!");
+      const results = await getAllTodoItems();
       return res.status(200).json(results);
     } catch (error) {
       console.log(error);
     }
   },
-
   async createTodo(req, res, next) {
     try {
       const newTodoData = req.body[0];
@@ -31,6 +28,7 @@ const todoItem = {
         isComplete: false,
       });
       const rows = await sequelize.query("select * from TodoLists");
+      res.status(200);
       console.log(rows);
     } catch (error) {
       console.log(error);
@@ -46,12 +44,28 @@ const todoItem = {
         },
       });
       console.log("comleted delete");
+      await res.status(200).json({ deleteId: todoId });
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  async changeTodoStatus(req, res, next) {
+    try {
+      const updateTodoId = req.body[0].todoId;
+      const updateTodoStatus = req.body[0].todoStatus;
+      console.log(updateTodoId);
+      await TodoLists.update(
+        { isComplete: updateTodoStatus },
+        { where: { id: updateTodoId } }
+      );
+      const results = await getAllTodoItems();
+      await res.status(200).json(results);
+      console.log(results);
     } catch (error) {
       console.log(error);
     }
   },
 };
-
 // (async () => {
 // const user = await TodoLists.create({
 //   todoTitle: "task5",

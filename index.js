@@ -24,17 +24,9 @@ app.use(cors(corsOptions));
 app.use(express.json()); // application/json
 // app.use(express.urlencoded({ extended: true }));
 
-app.get("/", todoItem.fetchAllTodo);
-
+app.get("/api/todoItem", todoItem.fetchAllTodo);
 app.post("/api/todoItem", todoItem.createTodo);
 app.delete("/api/todoItem", todoItem.deleteTodo);
-
-app.get("/api", (req, res) => {
-  res.json([
-    { id: 1, taskName: "task1", taskContent: "test1", deadline: "2021-12-31" },
-    { id: 2, taskName: "task2", taskContent: "test2", deadline: "2021-12-31" },
-    { id: 3, taskName: "task3", taskContent: "test3", deadline: "2021-12-12" },
-  ]);
-});
+app.put("/api/todoItem", todoItem.changeTodoStatus);
 
 app.listen(8000);
