@@ -8,11 +8,13 @@ import axios from "axios";
 import TableCell from "@mui/material/TableCell";
 import { TodoContext } from "./TodoBody";
 // import { useDeletetodo } from "./hook";
+import { UpdateDialog } from "./UpdateDialog";
 
 export const TableCells = ({ row }) => {
   // const { handleTodoDelete } = useDeletetodo();
   const [checked, setChecked] = useState(row.isComplete);
   console.log(row.isComplete);
+  console.log(row);
   const [todoLists, setTodoLists] = useContext(TodoContext);
   const handleTodoDelete = async (todoId) => {
     const todoIdData = { id: todoId };
@@ -61,16 +63,7 @@ export const TableCells = ({ row }) => {
             >
               <DeleteIcon />
             </IconButton>
-            <IconButton
-              aria-label="update"
-              size="small"
-              edge="start"
-              onClick={(event) => {
-                console.log(row.id);
-              }}
-            >
-              <CreateIcon />
-            </IconButton>
+            <UpdateDialog todoItem={row}></UpdateDialog>
           </React.Fragment>
         }
       </TableCell>

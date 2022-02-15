@@ -10,7 +10,7 @@ export const ControlledCheckbox = ({ checked, setChecked, id }) => {
     console.log(event.target.checked);
     const updateTodoStatus = [{ todoId: id, todoStatus: event.target.checked }];
     const response = await axios.put(
-      "http://localhost:8000/api/todoItem",
+      "http://localhost:8000/api/todoStatus",
       updateTodoStatus
     );
     console.log(response.data);

@@ -65,6 +65,25 @@ const todoItem = {
       console.log(error);
     }
   },
+  async chageTodoItem(req, res, next) {
+    try {
+      const updateTodo = await req.body[0];
+      await TodoLists.update(
+        {
+          todoTitle: updateTodo.title,
+          description: updateTodo.description,
+          deadline: updateTodo.deadline,
+        },
+        { where: { id: updateTodo.id } }
+      );
+      const results = await getAllTodoItems();
+      res.status(200).json(results);
+      console.log(`GET UPDATEDATA${updateTodo.title}`);
+      console.log(req.body);
+    } catch (error) {
+      console.log(error);
+    }
+  },
 };
 // (async () => {
 // const user = await TodoLists.create({

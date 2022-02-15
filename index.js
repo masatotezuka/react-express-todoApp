@@ -27,6 +27,7 @@ app.use(express.json()); // application/json
 app.get("/api/todoItem", todoItem.fetchAllTodo);
 app.post("/api/todoItem", todoItem.createTodo);
 app.delete("/api/todoItem", todoItem.deleteTodo);
-app.put("/api/todoItem", todoItem.changeTodoStatus);
+app.put("/api/todoStatus", todoItem.changeTodoStatus);
+app.put("/api/todoItem", todoItem.chageTodoItem);
 
 app.listen(8000);
