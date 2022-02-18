@@ -12,9 +12,8 @@ import { UpdateDialog } from "./UpdateDialog";
 
 export const TableCells = ({ row }) => {
   // const { handleTodoDelete } = useDeletetodo();
-  const [checked, setChecked] = useState(row.isComplete);
-  console.log(row.isComplete);
   console.log(row);
+  const [checked, setChecked] = useState(row.isComplete);
   const [todoLists, setTodoLists] = useContext(TodoContext);
   const handleTodoDelete = async (todoId) => {
     const todoIdData = { id: todoId };

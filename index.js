@@ -13,7 +13,7 @@ const config = require("./config/config");
 const { application } = require("express");
 const todoItem = require("./controllers/todoListsControllers");
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: "http://localhost:3367",
   optionsSucessStatus: 200,
 };
 // https://www.youtube.com/watch?v=CLaYhEbzIMM&list=RDCMUCoYzQqZNCRqqAomJwJ6yEdg&index=10

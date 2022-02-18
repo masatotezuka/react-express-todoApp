@@ -1,4 +1,3 @@
-import React from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useState, useRef } from "react";
@@ -6,47 +5,39 @@ import { BasicDatePicker } from "./DateComponents";
 import axios from "axios";
 
 export const TodoAdd = () => {
-  const [todoTitle, setTitle] = useState("");
+  const inputTitle = useRef("");
+  const inputDescription = useRef("");
   const [value, setValue] = useState(null);
-  const handleTitleChange = (e) => {
-    setTitle(e.target.value);
-  };
-  const [todoDescription, setDescription] = useState("");
-  const handleDescriptionChange = (e) => {
-    setDescription(e.target.value);
-  };
   const handleTodoItemSubmit = async (event) => {
-    // event.preventDefault();
+    event.preventDefault();
+    console.log(inputTitle.current.value);
     const newTodo = [
       {
-        title: todoTitle,
-        description: todoDescription,
+        title: inputTitle.current.value,
+        description: inputDescription.current.value,
         deadline: value,
       },
     ];
     await axios.post("http://localhost:8000/api/todoItem", newTodo);
   };
-
   return (
     <div>
       <form className="input-box" onSubmit={handleTodoItemSubmit}>
         <TextField
+          inputRef={inputTitle}
           sx={{ width: "25%", marginRight: "10px" }}
           id="outlined-basic"
           label="タスクを入力してください。"
           variant="outlined"
-          value={todoTitle}
           name="todoTitle"
-          onChange={handleTitleChange}
         />
         <TextField
+          inputRef={inputDescription}
           sx={{ width: "30%" }}
           id="outlined-basic"
           label="詳細を入力してください。"
           variant="outlined"
-          value={todoDescription}
           name="description"
-          onChange={handleDescriptionChange}
         />
         <BasicDatePicker value={value} setValue={setValue}></BasicDatePicker>
         <Button variant="contained" type="submit">

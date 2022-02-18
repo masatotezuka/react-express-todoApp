@@ -77,7 +77,7 @@ const todoItem = {
         { where: { id: updateTodo.id } }
       );
       const results = await getAllTodoItems();
-      res.status(200).json(results);
+      await res.status(200).json(results);
       console.log(`GET UPDATEDATA${updateTodo.title}`);
       console.log(req.body);
     } catch (error) {
