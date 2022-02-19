@@ -1,13 +1,12 @@
 import { useState, useContext, useEffect } from "react";
 import axios from "axios";
-import { TodoContext } from "../components/TodoBody";
 
 export const useTodo = () => {
-  // const [todoLists, setTodoLists] = useContext(TodoContext);
   const initialTodoLists = [
     { id: "", todoTitle: "", desctiption: "", deadline: "" },
   ];
   const [todoLists, setTodoLists] = useState(initialTodoLists);
+  //データ取得
   useEffect(() => {
     const getFetchAllDate = async () => {
       try {
@@ -22,6 +21,7 @@ export const useTodo = () => {
     getFetchAllDate();
   }, []);
 
+  //ステータス変更
   const toggleTodoStatus = async (event, id) => {
     console.log(event.target.checked);
     const updateTodoStatus = [{ todoId: id, todoStatus: event.target.checked }];
@@ -32,7 +32,7 @@ export const useTodo = () => {
     console.log(response.data);
     await setTodoLists(response.data);
   };
-
+  //削除
   const deleteTodo = async (todoId) => {
     const todoIdData = { id: todoId };
     console.log(todoIdData);
@@ -47,6 +47,7 @@ export const useTodo = () => {
         setTodoLists(newTodoLists);
       });
   };
+  //新規追加
   const addNewTodo = async (inputTitle, inputDescription, value) => {
     console.log(inputTitle.current.value);
     const newTodo = [
@@ -58,6 +59,8 @@ export const useTodo = () => {
     ];
     await axios.post("http://localhost:8000/api/todoItem", newTodo);
   };
+
+  //編集
   const updateTodo = async (todoId, updateTitle, updateDescription, value) => {
     const updateTodoItem = [
       {
@@ -72,8 +75,3 @@ export const useTodo = () => {
 
   return { todoLists, deleteTodo, toggleTodoStatus, addNewTodo, updateTodo };
 };
-
-//データ取得
-//追加機能
-//編集機能
-//削除機能

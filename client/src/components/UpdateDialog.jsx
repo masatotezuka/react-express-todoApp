@@ -1,6 +1,5 @@
 import React from "react";
 import { useState, useContext } from "react";
-import { TodoContext } from "./TodoBody";
 import Button from "@mui/material/Button";
 import CreateIcon from "@mui/icons-material/Create";
 import IconButton from "@mui/material/IconButton";
@@ -8,13 +7,10 @@ import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { BasicDatePicker } from "./DateComponents";
-import axios from "axios";
 
 export const UpdateDialog = ({ todoItem, updateTodo }) => {
-  // const [todoLists, setTodoLists] = useContext(TodoContext);
   const [updateTitle, setTitle] = useState(todoItem.todoTitle);
   const [updateDescription, setDescription] = useState(todoItem.description);
   const [open, setOpen] = useState(false);
@@ -37,18 +33,6 @@ export const UpdateDialog = ({ todoItem, updateTodo }) => {
   const handleUpdateTodoSubmit = () =>
     updateTodo(todoItem.id, updateTitle, updateDescription, value);
 
-  // const handleUpdateTodoSubmit = async () => {
-  //   const updateTodo = [
-  //     {
-  //       id: todoItem.id,
-  //       title: updateTitle,
-  //       description: updateDescription,
-  //       deadline: value,
-  //     },
-  //   ];
-  //   await axios.put("http://localhost:8000/api/todoItem", updateTodo);
-  // };
-
   return (
     <React.Fragment>
       <IconButton
@@ -66,7 +50,7 @@ export const UpdateDialog = ({ todoItem, updateTodo }) => {
           <DialogContent>
             <TextField
               value={updateTitle}
-              // onChange={}
+              required
               autoFocus
               margin="dense"
               id="name"

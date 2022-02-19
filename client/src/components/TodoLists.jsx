@@ -27,14 +27,12 @@ export const TodoListsTables = ({
             </TableCell>
             <TableCell
               align="center"
-              sx={{ paddingRight: "15px", paddingLeft: "15px", width: "60%" }}
+              sx={{ paddingRight: "15px", paddingLeft: "15px", width: "40%" }}
             >
               詳細
             </TableCell>
             <TableCell align="center">期日</TableCell>
-            <TableCell
-              sx={{ paddingLeft: "10px", paddingRight: "10px" }}
-            ></TableCell>
+            <TableCell></TableCell>
           </TableRow>
         </TableHead>
         <TableBody size="large">

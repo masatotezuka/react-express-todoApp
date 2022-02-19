@@ -2,8 +2,6 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useState, useRef } from "react";
 import { BasicDatePicker } from "./DateComponents";
-import axios from "axios";
-import { useTodo } from "../hooks/hooks";
 
 export const TodoAdd = ({ addNewTodo }) => {
   const inputTitle = useRef("");
@@ -11,17 +9,7 @@ export const TodoAdd = ({ addNewTodo }) => {
   const [value, setValue] = useState(null);
   const handleTodoItemSubmit = () =>
     addNewTodo(inputTitle, inputDescription, value);
-  // const handleTodoItemSubmit = async (event) => {
-  //   console.log(inputTitle.current.value);
-  //   const newTodo = [
-  //     {
-  //       title: inputTitle.current.value,
-  //       description: inputDescription.current.value,
-  //       deadline: value,
-  //     },
-  //   ];
-  //   await axios.post("http://localhost:8000/api/todoItem", newTodo);
-  // };
+
   return (
     <div>
       <form className="input-box" onSubmit={handleTodoItemSubmit}>
@@ -32,6 +20,7 @@ export const TodoAdd = ({ addNewTodo }) => {
           label="タスクを入力してください。"
           variant="outlined"
           name="todoTitle"
+          required
         />
         <TextField
           inputRef={inputDescription}

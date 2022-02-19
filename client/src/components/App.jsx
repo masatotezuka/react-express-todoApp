@@ -1,7 +1,6 @@
 import "../App.scss";
 import React from "react";
 import { TodoBody } from "./TodoBody";
-// import { TodoProvider, TodoContext } from "./TodoProvider";
 
 const App = () => {
   console.log("app");
