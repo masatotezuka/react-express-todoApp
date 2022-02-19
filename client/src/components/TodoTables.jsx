@@ -7,27 +7,33 @@ import { useState, useContext } from "react";
 import axios from "axios";
 import TableCell from "@mui/material/TableCell";
 import { TodoContext } from "./TodoBody";
-// import { useDeletetodo } from "./hook";
+import { useTodo } from "../hooks/hooks";
 import { UpdateDialog } from "./UpdateDialog";
 
-export const TableCells = ({ row }) => {
-  // const { handleTodoDelete } = useDeletetodo();
-  console.log(row);
+export const TableCells = ({
+  row,
+  deleteTodo,
+  toggleTodoStatus,
+  updateTodo,
+}) => {
   const [checked, setChecked] = useState(row.isComplete);
-  const [todoLists, setTodoLists] = useContext(TodoContext);
-  const handleTodoDelete = async (todoId) => {
-    const todoIdData = { id: todoId };
-    await axios
-      .delete("http://localhost:8000/api/todoItem", {
-        data: todoIdData,
-      })
-      .then((res) => {
-        const deleteId = res.data.deleteId;
-        const newTodoLists = todoLists.filter((item) => deleteId !== item.id);
-        console.log(newTodoLists);
-        setTodoLists(newTodoLists);
-      });
-  };
+  // const [todoLists, setTodoLists] = useContext(TodoContext);
+  // const handleTodoDelete = async (todoId) => {
+  //   const todoIdData = { id: todoId };
+  //   await axios
+  //     .delete("http://localhost:8000/api/todoItem", {
+  //       data: todoIdData,
+  //     })
+  //     .then((res) => {
+  //       const deleteId = res.data.deleteId;
+  //       const newTodoLists = todoLists.filter((item) => deleteId !== item.id);
+  //       console.log(newTodoLists);
+  //       setTodoLists(newTodoLists);
+  //     });
+  // };
+  const handleDeleteTodoitem = () => deleteTodo(row.id);
+  console.log("delete");
+
   return (
     <React.Fragment>
       <TableCell
@@ -56,13 +62,11 @@ export const TableCells = ({ row }) => {
               size="small"
               edge="start"
               sx={{ marginRight: "10px" }}
-              onClick={() => {
-                handleTodoDelete(row.id);
-              }}
+              onClick={handleDeleteTodoitem}
             >
               <DeleteIcon />
             </IconButton>
-            <UpdateDialog todoItem={row}></UpdateDialog>
+            <UpdateDialog todoItem={row} updateTodo={updateTodo}></UpdateDialog>
           </React.Fragment>
         }
       </TableCell>

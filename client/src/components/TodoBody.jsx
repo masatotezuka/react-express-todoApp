@@ -3,15 +3,19 @@ import React from "react";
 import { useState, useEffect, createContext } from "react";
 import { TodoAdd } from "./TodoAdd";
 import { TodoListsTables } from "./TodoLists";
+import { useTodo } from "../hooks/hooks";
 // import { TodoContext } from "./TodoProvider";
 
 export const TodoContext = createContext();
 
 export const TodoBody = () => {
-  const initialTodoLists = [
-    { id: "", todoTitle: "", desctiption: "", deadline: "" },
-  ];
-  const [todoLists, setTodoLists] = useState(initialTodoLists);
+  const { todoLists, deleteTodo, toggleTodoStatus, addNewTodo, updateTodo } =
+    useTodo();
+  // const initialTodoLists = [
+  //   { id: "", todoTitle: "", desctiption: "", deadline: "" },
+  // ];
+  // const [todoLists, setTodoLists] = useState(initialTodoLists);
+
   console.log(todoLists);
   const unCompletedTodoLists = todoLists.filter(
     (todoList) => todoList.isComplete === false
@@ -19,36 +23,34 @@ export const TodoBody = () => {
   const completedTodoLists = todoLists.filter(
     (todoList) => todoList.isComplete === true
   );
-  // const value = { unCompletedTodoLists, completedTodoLists, setTodoLists };
-  useEffect(() => {
-    const getTodoLists = async () => {
-      try {
-        const response = await fetch("http://localhost:8000/api/todoItem");
-        const jsondata = await response.json();
-        await setTodoLists(jsondata);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getTodoLists();
-  }, []);
+
   return (
     <React.Fragment>
-      <TodoContext.Provider value={[todoLists, setTodoLists]}>
-        <TodoAdd></TodoAdd>
-        <h2>未完了リスト</h2>
-        <div className="todo-container">
-          <div className="todo-table">
-            <TodoListsTables todoLists={unCompletedTodoLists}></TodoListsTables>
-          </div>
+      {/* <TodoContext.Provider value={[todoLists]}> */}
+      <TodoAdd addNewTodo={addNewTodo}></TodoAdd>
+      <h2>未完了リスト</h2>
+      <div className="todo-container">
+        <div className="todo-table">
+          <TodoListsTables
+            todoLists={unCompletedTodoLists}
+            deleteTodo={deleteTodo}
+            toggleTodoStatus={toggleTodoStatus}
+            updateTodo={updateTodo}
+          ></TodoListsTables>
         </div>
-        <h2>完了リスト</h2>
-        <div className="todo-container">
-          <div className="todo-table">
-            <TodoListsTables todoLists={completedTodoLists}></TodoListsTables>
-          </div>
+      </div>
+      <h2>完了リスト</h2>
+      <div className="todo-container">
+        <div className="todo-table">
+          <TodoListsTables
+            todoLists={completedTodoLists}
+            deleteTodo={deleteTodo}
+            toggleTodoStatus={toggleTodoStatus}
+            updateTodo={updateTodo}
+          ></TodoListsTables>
         </div>
-      </TodoContext.Provider>
+      </div>
+      {/* </TodoContext.Provider> */}
     </React.Fragment>
   );
 };

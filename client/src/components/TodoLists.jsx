@@ -8,7 +8,12 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { TableCells } from "./TodoTables";
 
-export const TodoListsTables = ({ todoLists }) => {
+export const TodoListsTables = ({
+  todoLists,
+  deleteTodo,
+  toggleTodoStatus,
+  updateTodo,
+}) => {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table" size="large">
@@ -38,7 +43,12 @@ export const TodoListsTables = ({ todoLists }) => {
               key={row.id}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
-              <TableCells row={row}></TableCells>
+              <TableCells
+                row={row}
+                deleteTodo={deleteTodo}
+                toggleTodoStatus={toggleTodoStatus}
+                updateTodo={updateTodo}
+              ></TableCells>
             </TableRow>
           ))}
         </TableBody>

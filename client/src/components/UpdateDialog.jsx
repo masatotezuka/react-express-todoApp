@@ -13,9 +13,8 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { BasicDatePicker } from "./DateComponents";
 import axios from "axios";
 
-export const UpdateDialog = ({ todoItem }) => {
-  const [todoLists, setTodoLists] = useContext(TodoContext);
-
+export const UpdateDialog = ({ todoItem, updateTodo }) => {
+  // const [todoLists, setTodoLists] = useContext(TodoContext);
   const [updateTitle, setTitle] = useState(todoItem.todoTitle);
   const [updateDescription, setDescription] = useState(todoItem.description);
   const [open, setOpen] = useState(false);
@@ -35,17 +34,20 @@ export const UpdateDialog = ({ todoItem }) => {
     setOpen(false);
   };
 
-  const handleUpdateTodoSubmit = async () => {
-    const updateTodo = [
-      {
-        id: todoItem.id,
-        title: updateTitle,
-        description: updateDescription,
-        deadline: value,
-      },
-    ];
-    await axios.put("http://localhost:8000/api/todoItem", updateTodo);
-  };
+  const handleUpdateTodoSubmit = () =>
+    updateTodo(todoItem.id, updateTitle, updateDescription, value);
+
+  // const handleUpdateTodoSubmit = async () => {
+  //   const updateTodo = [
+  //     {
+  //       id: todoItem.id,
+  //       title: updateTitle,
+  //       description: updateDescription,
+  //       deadline: value,
+  //     },
+  //   ];
+  //   await axios.put("http://localhost:8000/api/todoItem", updateTodo);
+  // };
 
   return (
     <React.Fragment>
