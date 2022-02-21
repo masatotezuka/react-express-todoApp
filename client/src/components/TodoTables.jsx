@@ -6,12 +6,14 @@ import { useState } from "react";
 import TableCell from "@mui/material/TableCell";
 import { UpdateDialog } from "./UpdateDialog";
 import moment from "moment";
+
 export const TableCells = React.memo(
   ({ row, deleteTodo, toggleTodoStatus, updateTodo }) => {
     const [checked, setChecked] = useState(row.isComplete);
     const handleDeleteTodoitem = () => deleteTodo(row.id);
     const momentedDeadline = moment(row.deadline);
     const formatedDeadline = momentedDeadline.format("YYYY-MM-DD");
+    console.log("tablecells");
 
     return (
       <React.Fragment>

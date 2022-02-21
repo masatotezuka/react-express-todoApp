@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { useState, useContext } from "react";
 import Button from "@mui/material/Button";
 import CreateIcon from "@mui/icons-material/Create";
@@ -10,7 +10,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { BasicDatePicker } from "./DateComponents";
 
-export const UpdateDialog = ({ todoItem, updateTodo }) => {
+export const UpdateDialog = React.memo(({ todoItem, updateTodo }) => {
   const [updateTitle, setTitle] = useState(todoItem.todoTitle);
   const [updateDescription, setDescription] = useState(todoItem.description);
   const [open, setOpen] = useState(false);
@@ -30,8 +30,10 @@ export const UpdateDialog = ({ todoItem, updateTodo }) => {
     setOpen(false);
   };
 
-  const handleUpdateTodoSubmit = () =>
-    updateTodo(todoItem.id, updateTitle, updateDescription, value);
+  const handleUpdateTodoSubmit = useCallback(
+    () => updateTodo(todoItem.id, updateTitle, updateDescription, value),
+    [todoItem]
+  );
 
   return (
     <React.Fragment>
@@ -86,4 +88,4 @@ export const UpdateDialog = ({ todoItem, updateTodo }) => {
       </Dialog>
     </React.Fragment>
   );
-};
+});

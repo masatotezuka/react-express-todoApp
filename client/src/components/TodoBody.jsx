@@ -3,7 +3,7 @@ import { TodoAdd } from "./TodoAdd";
 import { TodoListsTables } from "./TodoLists";
 import { useTodo } from "../hooks/hooks";
 
-export const TodoBody = () => {
+export const TodoBody = React.memo(() => {
   const { todoLists, deleteTodo, toggleTodoStatus, addNewTodo, updateTodo } =
     useTodo();
 
@@ -42,4 +42,4 @@ export const TodoBody = () => {
       </div>
     </React.Fragment>
   );
-};
+});

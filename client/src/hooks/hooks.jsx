@@ -1,5 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import axios from "axios";
+import { useCallback } from "react";
 
 export const useTodo = () => {
   const initialTodoLists = [
@@ -22,16 +23,16 @@ export const useTodo = () => {
   }, []);
 
   //ステータス変更
-  const toggleTodoStatus = async (event, id) => {
+  const toggleTodoStatus = useCallback(async (event, id) => {
+    console.log("toggleStatus");
     console.log(event.target.checked);
     const updateTodoStatus = [{ todoId: id, todoStatus: event.target.checked }];
     const response = await axios.put(
       "http://localhost:8000/api/todoStatus",
       updateTodoStatus
     );
-    console.log(response.data);
     await setTodoLists(response.data);
-  };
+  }, []);
   //削除
   const deleteTodo = async (todoId) => {
     const todoIdData = { id: todoId };
@@ -62,6 +63,7 @@ export const useTodo = () => {
 
   //編集
   const updateTodo = async (todoId, updateTitle, updateDescription, value) => {
+    console.log("updateTodo");
     const updateTodoItem = [
       {
         id: todoId,

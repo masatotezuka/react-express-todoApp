@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize");
-const sequelize = require("../model/index");
-const TodoLists = require("../model/todo-lists");
+// const sequelize = require("../model/index");
+const TodoLists = require("../models").TodoLists;
 
 const getAllTodoItems = async () => {
   return await TodoLists.findAll({

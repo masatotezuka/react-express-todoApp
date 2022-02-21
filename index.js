@@ -4,9 +4,9 @@ const app = express();
 const router = express.Router();
 const cors = require("cors");
 const dotenv = require("dotenv");
-const connectedWithSql = require("./model/index");
-const model = require("./model/todo-lists");
-const todoLists = require("./model/todo-lists");
+// const connectedWithSql = require("./model/index");
+// const model = require("./models/todolists");
+// const todoLists = require("./model/todo-lists");
 dotenv.config();
 //configの読み込みはdot.env()の後
 const config = require("./config/config");
