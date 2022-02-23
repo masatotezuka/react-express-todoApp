@@ -2,6 +2,8 @@ import { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import { useCallback } from "react";
 
+const apiUrl = "http://localhost:8000";
+
 export const useTodo = () => {
   const initialTodoLists = [
     { id: "", todoTitle: "", desctiption: "", deadline: "" },
@@ -12,7 +14,7 @@ export const useTodo = () => {
     const getFetchAllDate = async () => {
       try {
         console.log("useEffect");
-        const response = await fetch("http://localhost:8000/api/todoItem");
+        const response = await fetch(`${apiUrl}/api/todoItem`);
         const jsondata = await response.json();
         await setTodoLists(jsondata);
       } catch (error) {
@@ -28,7 +30,7 @@ export const useTodo = () => {
     console.log(event.target.checked);
     const updateTodoStatus = [{ todoId: id, todoStatus: event.target.checked }];
     const response = await axios.put(
-      "http://localhost:8000/api/todoStatus",
+      `${apiUrl}/api/todoItem/todoStatus`,
       updateTodoStatus
     );
     await setTodoLists(response.data);
@@ -38,7 +40,7 @@ export const useTodo = () => {
     const todoIdData = { id: todoId };
     console.log(todoIdData);
     await axios
-      .delete("http://localhost:8000/api/todoItem", {
+      .delete(`${apiUrl}/api/todoItem`, {
         data: todoIdData,
       })
       .then((res) => {
@@ -58,7 +60,7 @@ export const useTodo = () => {
         deadline: value,
       },
     ];
-    await axios.post("http://localhost:8000/api/todoItem", newTodo);
+    await axios.post(`${apiUrl}/api/todoItem`, newTodo);
   };
 
   //編集
@@ -72,7 +74,7 @@ export const useTodo = () => {
         deadline: value,
       },
     ];
-    await axios.put("http://localhost:8000/api/todoItem", updateTodoItem);
+    await axios.put(`${apiUrl}/api/todoItem`, updateTodoItem);
   };
 
   return { todoLists, deleteTodo, toggleTodoStatus, addNewTodo, updateTodo };

@@ -1,5 +1,3 @@
-const Sequelize = require("sequelize");
-// const sequelize = require("../model/index");
 const TodoLists = require("../models").TodoLists;
 
 const getAllTodoItems = async () => {
@@ -20,6 +18,7 @@ const todoItem = {
   },
   async createTodo(req, res, next) {
     try {
+      console.log(req.body);
       const newTodoData = req.body[0];
       await TodoLists.create({
         todoTitle: newTodoData.title,
@@ -27,9 +26,8 @@ const todoItem = {
         deadline: newTodoData.deadline,
         isComplete: false,
       });
-      const rows = await sequelize.query("select * from TodoLists");
       res.status(200);
-      console.log(rows);
+      //リダイレクトする必要はないのか？
     } catch (error) {
       console.log(error);
     }
@@ -85,15 +83,5 @@ const todoItem = {
     }
   },
 };
-// (async () => {
-// const user = await TodoLists.create({
-//   todoTitle: "task5",
-//   description: "hogehoge3",
-//   deadline: "2022-02-15",
-//   isComplete: false,
-// });
-//   const rows = await sequelize.query("select * from TodoLists");
-//   console.log(rows);
-// })();
 
 module.exports = todoItem;
