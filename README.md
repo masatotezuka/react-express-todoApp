@@ -11,7 +11,7 @@ git clone https://github.com/masatotezuka/react-express-todoApp.git
 npm i
 ```
 
-#### 3.DBのマイグレーション
+#### 3.DBマイグレーション（MySQL）
 ```
 npx sequelize-cli db:migrate
 ```
