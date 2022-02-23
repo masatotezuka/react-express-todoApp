@@ -25,13 +25,7 @@ GRANT ALL PRIVILEGES ON todoapp_db.* TO root@'127.0.0.1';
 npx sequelize-cli db:migrate
 ```
 
-#### 4. バックエンドのサーバーを立ち上げる
+#### 4. サーバーを立ち上げる
 ```
-npm start
-```
-
-#### 5. フロントエンドのサーバーを立ち上げる
-```
-cd client
 npm start
 ```
