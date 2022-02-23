@@ -13,10 +13,10 @@ npm i
 
 #### 4. MySQLの起動
 ```
-brew services start mysql
-mysql --user="usename" --password="password"
+brew services start mysql;
+mysql --user="usename" --password="password";
 CREATE USER 'root'@'127.0.0.1' IDENTIFIED BY 'tezukamasato1370';
-CREATE DATABASE todoapp_db
+CREATE DATABASE todoapp_db;
 GRANT ALL PRIVILEGES ON todoapp_db.* TO root@'127.0.0.1';
 ```
 
