@@ -3,7 +3,7 @@
 ## 環境構築
 #### 1. レポジトリをローカルにクローンする.
 ```
-git clone 
+git clone https://github.com/masatotezuka/react-express-todoApp.git
 ```
 
 #### 2. npmのインストール
