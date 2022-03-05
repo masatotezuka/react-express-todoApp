@@ -3,7 +3,6 @@ const ValidationTodoItemForm = (req, res, next) => {
   if (todoTitle === "") {
     return res.sendStatus(400);
   } else {
-    console.log("validation OK!");
     next();
   }
 };

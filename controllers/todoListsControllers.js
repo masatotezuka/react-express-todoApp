@@ -9,11 +9,10 @@ const getAllTodoItems = async () => {
 const todoItem = {
   async fetchAllTodo(req, res, next) {
     try {
-      console.log("database get!");
       const results = await getAllTodoItems();
       return res.status(200).json(results);
     } catch (error) {
-      console.log(error);
+      res.status(500).send(error);
     }
   },
   async createTodo(req, res, next) {
@@ -27,9 +26,8 @@ const todoItem = {
         isComplete: false,
       });
       res.status(200);
-      //リダイレクトする必要はないのか？
     } catch (error) {
-      console.log(error);
+      res.status(500).send(error);
     }
   },
   async deleteTodo(req, res, next) {
@@ -41,10 +39,9 @@ const todoItem = {
           id: todoId,
         },
       });
-      console.log("comleted delete");
       await res.status(200).json({ deleteId: todoId });
     } catch (error) {
-      console.log(error);
+      res.status(500).send(error);
     }
   },
   async changeTodoStatus(req, res, next) {
@@ -59,7 +56,7 @@ const todoItem = {
       const results = await getAllTodoItems();
       await res.status(200).json(results);
     } catch (error) {
-      console.log(error);
+      res.status(500).send(error);
     }
   },
   async changeTodoItem(req, res, next) {
@@ -76,7 +73,7 @@ const todoItem = {
       const results = await getAllTodoItems();
       res.status(200).json(results);
     } catch (error) {
-      console.log(error);
+      res.status(500).send(error);
     }
   },
 };
