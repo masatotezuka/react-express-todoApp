@@ -58,14 +58,13 @@ const todoItem = {
       );
       const results = await getAllTodoItems();
       await res.status(200).json(results);
-      console.log(results);
     } catch (error) {
       console.log(error);
     }
   },
-  async chageTodoItem(req, res, next) {
+  async changeTodoItem(req, res, next) {
     try {
-      const updateTodo = await req.body[0];
+      const updateTodo = req.body[0];
       await TodoLists.update(
         {
           todoTitle: updateTodo.title,
@@ -75,9 +74,7 @@ const todoItem = {
         { where: { id: updateTodo.id } }
       );
       const results = await getAllTodoItems();
-      await res.status(200).json(results);
-      console.log(`GET UPDATEDATA${updateTodo.title}`);
-      console.log(req.body);
+      res.status(200).json(results);
     } catch (error) {
       console.log(error);
     }

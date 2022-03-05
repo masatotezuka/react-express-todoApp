@@ -6,7 +6,7 @@ const ValidationTodoItemForm = require("../middlewares/index");
 router.get("/", todoItem.fetchAllTodo);
 router.post("/", ValidationTodoItemForm, todoItem.createTodo);
 router.delete("/", todoItem.deleteTodo);
-router.put("/", ValidationTodoItemForm, todoItem.chageTodoItem);
+router.put("/", ValidationTodoItemForm, todoItem.changeTodoItem);
 router.put("/todoStatus", todoItem.changeTodoStatus);
 
 console.log(router);

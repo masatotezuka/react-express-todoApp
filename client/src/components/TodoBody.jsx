@@ -3,11 +3,10 @@ import { TodoAdd } from "./TodoAdd";
 import { TodoListsTables } from "./TodoLists";
 import { useTodo } from "../hooks/hooks";
 
-export const TodoBody = React.memo(() => {
+export const TodoBody = () => {
   const { todoLists, deleteTodo, toggleTodoStatus, addNewTodo, updateTodo } =
     useTodo();
 
-  console.log(todoLists);
   const unCompletedTodoLists = todoLists.filter(
     (todoList) => todoList.isComplete === false
   );
@@ -42,4 +41,4 @@ export const TodoBody = React.memo(() => {
       </div>
     </React.Fragment>
   );
-});
+};

@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useCallback } from "react";
 
@@ -46,7 +46,6 @@ export const useTodo = () => {
       .then((res) => {
         const deleteId = res.data.deleteId;
         const newTodoLists = todoLists.filter((item) => deleteId !== item.id);
-        console.log(newTodoLists);
         setTodoLists(newTodoLists);
       });
   };
@@ -74,7 +73,9 @@ export const useTodo = () => {
         deadline: value,
       },
     ];
-    await axios.put(`${apiUrl}/api/todoItem`, updateTodoItem);
+    const response = await axios.put(`${apiUrl}/api/todoItem`, updateTodoItem);
+    console.log(response);
+    setTodoLists(response.data);
   };
 
   return { todoLists, deleteTodo, toggleTodoStatus, addNewTodo, updateTodo };

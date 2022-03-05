@@ -10,7 +10,6 @@ import { TableCells } from "./TodoTables";
 
 export const TodoListsTables = React.memo(
   ({ todoLists, deleteTodo, toggleTodoStatus, updateTodo }) => {
-    console.log(todoLists);
     return (
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table" size="large">

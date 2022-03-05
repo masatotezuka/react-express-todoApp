@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import Button from "@mui/material/Button";
 import CreateIcon from "@mui/icons-material/Create";
 import IconButton from "@mui/material/IconButton";
@@ -14,7 +14,7 @@ export const UpdateDialog = React.memo(({ todoItem, updateTodo }) => {
   const [updateTitle, setTitle] = useState(todoItem.todoTitle);
   const [updateDescription, setDescription] = useState(todoItem.description);
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(todoItem.deadline);
+  const [date, setDate] = useState(todoItem.deadline);
   const handleChangeTitle = (e) => {
     setTitle(e.target.value);
   };
@@ -30,10 +30,16 @@ export const UpdateDialog = React.memo(({ todoItem, updateTodo }) => {
     setOpen(false);
   };
 
-  const handleUpdateTodoSubmit = useCallback(
-    () => updateTodo(todoItem.id, updateTitle, updateDescription, value),
-    [todoItem]
-  );
+  const handleUpdateTodoSubmit = useCallback(() => {
+    if (
+      updateTitle !== todoItem.todoTitle ||
+      updateDescription !== todoItem.description ||
+      date !== todoItem.deadline
+    ) {
+      updateTodo(todoItem.id, updateTitle, updateDescription, date), [todoItem];
+    }
+    handleClose();
+  });
 
   return (
     <React.Fragment>
@@ -48,43 +54,37 @@ export const UpdateDialog = React.memo(({ todoItem, updateTodo }) => {
       <Dialog open={open} onClose={handleClose}>
         {/* <div className="dialog-box"> */}
         <DialogTitle>Todoの修正</DialogTitle>
-        <form onSubmit={handleUpdateTodoSubmit}>
-          <DialogContent>
-            <TextField
-              value={updateTitle}
-              required
-              autoFocus
-              margin="dense"
-              id="name"
-              label="タスク"
-              type="text"
-              fullWidth
-              variant="standard"
-              onChange={handleChangeTitle}
-            />
-            <TextField
-              value={updateDescription}
-              autoFocus
-              margin="dense"
-              id="name"
-              label="詳細"
-              type="text"
-              fullWidth
-              variant="standard"
-              sx={{ marginBottom: "30px" }}
-              onChange={handleChangeDescription}
-            />
-            <BasicDatePicker
-              value={value}
-              setValue={setValue}
-            ></BasicDatePicker>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose}>中止</Button>
-            <Button type="submit">保存</Button>
-          </DialogActions>
-        </form>
-        {/* </div> */}
+        <DialogContent>
+          <TextField
+            value={updateTitle}
+            required
+            autoFocus
+            margin="dense"
+            id="name"
+            label="タスク"
+            type="text"
+            fullWidth
+            variant="standard"
+            onChange={handleChangeTitle}
+          />
+          <TextField
+            value={updateDescription}
+            autoFocus
+            margin="dense"
+            id="name"
+            label="詳細"
+            type="text"
+            fullWidth
+            variant="standard"
+            sx={{ marginBottom: "30px" }}
+            onChange={handleChangeDescription}
+          />
+          <BasicDatePicker date={date} setDate={setDate}></BasicDatePicker>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>中止</Button>
+          <Button onClick={handleUpdateTodoSubmit}>保存</Button>
+        </DialogActions>
       </Dialog>
     </React.Fragment>
   );

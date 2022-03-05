@@ -2,18 +2,15 @@ import React from "react";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { ControlledCheckbox } from "./CheckboxComponents";
-import { useState } from "react";
 import TableCell from "@mui/material/TableCell";
 import { UpdateDialog } from "./UpdateDialog";
 import moment from "moment";
 
 export const TableCells = React.memo(
   ({ row, deleteTodo, toggleTodoStatus, updateTodo }) => {
-    const [checked, setChecked] = useState(row.isComplete);
     const handleDeleteTodoitem = () => deleteTodo(row.id);
-    const momentedDeadline = moment(row.deadline);
-    const formatedDeadline = momentedDeadline.format("YYYY-MM-DD");
-    console.log("tablecells");
+    const momentedDeadLine = moment(row.deadline);
+    const formatedDeadLine = momentedDeadLine.format("YYYY-MM-DD");
 
     return (
       <React.Fragment>
@@ -22,7 +19,7 @@ export const TableCells = React.memo(
           sx={{ paddingRight: "0px", paddingLeft: "0px", width: "5%" }}
         >
           <ControlledCheckbox
-            checked={checked}
+            checked={row.isComplete}
             id={row.id}
             toggleTodoStatus={toggleTodoStatus}
           ></ControlledCheckbox>
@@ -45,7 +42,7 @@ export const TableCells = React.memo(
           align="center"
           sx={{ paddingLeft: "0px", paddingRight: "0px" }}
         >
-          {formatedDeadline}
+          {formatedDeadLine}
         </TableCell>
         <TableCell
           align="center"
