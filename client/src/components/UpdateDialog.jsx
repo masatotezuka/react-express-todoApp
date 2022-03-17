@@ -30,17 +30,16 @@ export const UpdateDialog = React.memo(({ todoItem, updateTodo }) => {
     setOpen(false);
   };
 
-  const handleUpdateTodoSubmit = useCallback(() => {
+  const handleUpdateTodoSubmit = () => {
     if (
       updateTitle !== todoItem.todoTitle ||
       updateDescription !== todoItem.description ||
       date !== todoItem.deadline
     ) {
-      updateTodo(todoItem.id, updateTitle, updateDescription, date), [todoItem];
+      updateTodo(todoItem.id, updateTitle, updateDescription, date);
     }
     handleClose();
-  });
-
+  };
   return (
     <React.Fragment>
       <IconButton

@@ -6,9 +6,9 @@ import { BasicDatePicker } from "./DateComponents";
 export const TodoAdd = ({ addNewTodo }) => {
   const inputTitle = useRef("");
   const inputDescription = useRef("");
-  const [value, setValue] = useState(null);
+  const [date, setDate] = useState(null);
   const handleTodoItemSubmit = () =>
-    addNewTodo(inputTitle, inputDescription, value);
+    addNewTodo(inputTitle, inputDescription, date);
 
   return (
     <div>
@@ -30,7 +30,7 @@ export const TodoAdd = ({ addNewTodo }) => {
           variant="outlined"
           name="description"
         />
-        <BasicDatePicker value={value} setValue={setValue}></BasicDatePicker>
+        <BasicDatePicker date={date} setDate={setDate}></BasicDatePicker>
         <Button variant="contained" type="submit">
           タスクの追加
         </Button>
