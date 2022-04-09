@@ -1,28 +1,24 @@
 // https://reffect.co.jp/react/front-react-back-node
 const express = require("express");
 const app = express();
-const port = 8000;
 const cors = require("cors");
-
+require("dotenv").config();
+//configの読み込みはdotenv.env()の後
+const routes = require("./routes/todoItem");
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: "http://localhost:3367",
   optionsSucessStatus: 200,
 };
 // https://www.youtube.com/watch?v=CLaYhEbzIMM&list=RDCMUCoYzQqZNCRqqAomJwJ6yEdg&index=10
-
 app.use(cors(corsOptions));
-// https://qiita.com/chenglin/items/5e563e50d1c32dadf4c3
+//https://zenn.dev/luvmini511/articles/d8b2322e95ff40 cors
+//https://qiita.com/chenglin/items/5e563e50d1c32dadf4c3
 
-app.get("/", (req, res) => {
-  res.send("Heelo");
-});
+app.use(express.json());
 
-app.get("/api", (req, res) => {
-  res.json([
-    { id: 1, taskName: "task1" },
-    { id: 2, taskName: "task2" },
-    { id: 3, taskName: "task3" },
-  ]);
-});
+//今は使わない
+// app.use(express.urlencoded({ extended: true }));
 
-app.listen(port);
+app.use("/api/todoItem", routes);
+
+app.listen(8000);
