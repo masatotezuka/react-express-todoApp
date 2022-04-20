@@ -1,11 +1,11 @@
-import "../App.scss";
+import "../../App.scss";
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { UncompletedTodo } from "./UncompletedTodo";
 import { CompletedTodo } from "./CompletedTodo";
 import { Top } from "./Top";
 import { NotFound } from "./NotFound";
-import { ErrorBoundary } from "./ErrorBoundary";
+import { ErrorBoundary } from "../../ErrorBoundary";
 
 const App = () => {
   return (

@@ -1,4 +1,4 @@
-import "../App.scss";
+import "../../App.scss";
 import React from "react";
 
 export const NotFound = () => {

@@ -1,18 +1,17 @@
 import React from "react";
 import { TodoAdd } from "./TodoAdd";
 import { TodoLists } from "./TodoLists";
-import { useTodo } from "../hooks/hooks";
+import { useTodo } from "../../hooks/hooks";
 import { TodoTabLists } from "./TodoTabLists";
 import { Link } from "react-router-dom";
 
-export const CompletedTodo = () => {
+export const UncompletedTodo = () => {
   const { todoLists, deleteTodo, toggleTodoStatus, addNewTodo, updateTodo } =
     useTodo();
 
-  const completedTodoLists = todoLists.filter(
-    (todoList) => todoList.isComplete === true
+  const unCompletedTodoLists = todoLists.filter(
+    (todoList) => todoList.isComplete === false
   );
-
   return (
     <React.Fragment>
       <TodoAdd addNewTodo={addNewTodo}></TodoAdd>
@@ -23,7 +22,7 @@ export const CompletedTodo = () => {
       <div className="todo-container">
         <div className="todo-table">
           <TodoLists
-            todoLists={completedTodoLists}
+            todoLists={unCompletedTodoLists}
             deleteTodo={deleteTodo}
             toggleTodoStatus={toggleTodoStatus}
             updateTodo={updateTodo}
