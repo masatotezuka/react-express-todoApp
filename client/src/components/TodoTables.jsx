@@ -8,8 +8,8 @@ import moment from "moment";
 
 export const TableCells = React.memo(
   ({ row, deleteTodo, toggleTodoStatus, updateTodo }) => {
-    const handleDeleteTodoitem = () => deleteTodo(row.id);
-    const formatedDeadLine = moment(row.deadline).format("YYYY-MM-DD");
+    const handleDeleteTodoItem = () => deleteTodo(row.id);
+    const deadline = moment(row.deadline).format("YYYY-MM-DD");
 
     return (
       <React.Fragment>
@@ -41,7 +41,7 @@ export const TableCells = React.memo(
           align="center"
           sx={{ paddingLeft: "0px", paddingRight: "0px" }}
         >
-          {formatedDeadLine}
+          {deadline}
         </TableCell>
         <TableCell
           align="center"
@@ -54,7 +54,7 @@ export const TableCells = React.memo(
                 size="small"
                 edge="start"
                 sx={{ marginRight: "10px" }}
-                onClick={handleDeleteTodoitem}
+                onClick={handleDeleteTodoItem}
               >
                 <DeleteIcon />
               </IconButton>
