@@ -9,8 +9,7 @@ import moment from "moment";
 export const TableCells = React.memo(
   ({ row, deleteTodo, toggleTodoStatus, updateTodo }) => {
     const handleDeleteTodoitem = () => deleteTodo(row.id);
-    const momentedDeadLine = moment(row.deadline);
-    const formatedDeadLine = momentedDeadLine.format("YYYY-MM-DD");
+    const formatedDeadLine = moment(row.deadline).format("YYYY-MM-DD");
 
     return (
       <React.Fragment>

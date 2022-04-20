@@ -1,44 +1,35 @@
 import React from "react";
 import { TodoAdd } from "./TodoAdd";
-import { TodoListsTables } from "./TodoLists";
+import { TodoLists } from "./TodoLists";
 import { useTodo } from "../hooks/hooks";
+import { TodoTabLists } from "./TodoTabLists";
+import { Link } from "react-router-dom";
 
-export const TodoBody = () => {
+export const UncompletedTodo = () => {
   const { todoLists, deleteTodo, toggleTodoStatus, addNewTodo, updateTodo } =
     useTodo();
 
   const unCompletedTodoLists = todoLists.filter(
     (todoList) => todoList.isComplete === false
   );
-  const completedTodoLists = todoLists.filter(
-    (todoList) => todoList.isComplete === true
-  );
-
   return (
     <React.Fragment>
       <TodoAdd addNewTodo={addNewTodo}></TodoAdd>
-      <h2>未完了リスト</h2>
+      <TodoTabLists
+        completedLink="/completed"
+        unCompletedLink="/uncompleted"
+      ></TodoTabLists>
       <div className="todo-container">
         <div className="todo-table">
-          <TodoListsTables
+          <TodoLists
             todoLists={unCompletedTodoLists}
             deleteTodo={deleteTodo}
             toggleTodoStatus={toggleTodoStatus}
             updateTodo={updateTodo}
-          ></TodoListsTables>
+          ></TodoLists>
         </div>
       </div>
-      <h2>完了リスト</h2>
-      <div className="todo-container">
-        <div className="todo-table">
-          <TodoListsTables
-            todoLists={completedTodoLists}
-            deleteTodo={deleteTodo}
-            toggleTodoStatus={toggleTodoStatus}
-            updateTodo={updateTodo}
-          ></TodoListsTables>
-        </div>
-      </div>
+      <Link to="/">トップページに戻る</Link>
     </React.Fragment>
   );
 };
