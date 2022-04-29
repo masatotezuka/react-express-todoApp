@@ -1,7 +1,7 @@
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useState, useRef } from "react";
-import { BasicDatePicker } from "../compnents/DateComponents";
+import { BasicDatePicker } from "../components/DateComponents";
 
 export const TodoAdd = ({ addNewTodo }) => {
   console.log("Add");
