@@ -11,6 +11,13 @@ import { ErrorBoundary } from "../../ErrorBoundary";
 const App = () => {
   const { todoLists, deleteTodo, toggleTodoStatus, addNewTodo, updateTodo } =
     useTodo();
+  console.log("App");
+  const unCompletedTodoLists = todoLists.filter(
+    (todoList) => todoList.isComplete === false
+  );
+  const completedTodoLists = todoLists.filter(
+    (todoList) => todoList.isComplete === true
+  );
   return (
     <ErrorBoundary>
       <BrowserRouter>
@@ -22,7 +29,7 @@ const App = () => {
               path="/uncompleted"
               element={
                 <UncompletedTodo
-                  todoLists={todoLists}
+                  unCompletedTodoLists={unCompletedTodoLists}
                   deleteTodo={deleteTodo}
                   toggleTodoStatus={toggleTodoStatus}
                   addNewTodo={addNewTodo}
@@ -34,7 +41,7 @@ const App = () => {
               path="/completed"
               element={
                 <CompletedTodo
-                  todoLists={todoLists}
+                  completedTodoLists={completedTodoLists}
                   deleteTodo={deleteTodo}
                   toggleTodoStatus={toggleTodoStatus}
                   addNewTodo={addNewTodo}

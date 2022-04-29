@@ -4,11 +4,17 @@ import { useState, useRef } from "react";
 import { BasicDatePicker } from "../compnents/DateComponents";
 
 export const TodoAdd = ({ addNewTodo }) => {
+  console.log("Add");
   const inputTitle = useRef("");
   const inputDescription = useRef("");
   const [date, setDate] = useState(null);
-  const handleTodoItemSubmit = () =>
+  const handleTodoItemSubmit = (event) => {
+    event.preventDefault();
     addNewTodo(inputTitle, inputDescription, date);
+    inputTitle.current.value = "";
+    inputDescription.current.value = "";
+    setDate(null);
+  };
 
   return (
     <div>
