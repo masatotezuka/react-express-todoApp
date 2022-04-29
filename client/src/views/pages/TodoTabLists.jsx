@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export const TodoTabLists = (props) => {
+export const TodoTabLists = React.memo((props) => {
   console.log(props.completedLink);
   return (
     <div className="todo-tabs-wrapper">
@@ -11,4 +11,4 @@ export const TodoTabLists = (props) => {
       </div>
     </div>
   );
-};
+});

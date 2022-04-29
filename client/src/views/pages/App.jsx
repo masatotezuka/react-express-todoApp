@@ -5,9 +5,12 @@ import { UncompletedTodo } from "./UncompletedTodo";
 import { CompletedTodo } from "./CompletedTodo";
 import { Top } from "./Top";
 import { NotFound } from "./NotFound";
+import { useTodo } from "../../hooks/hooks";
 import { ErrorBoundary } from "../../ErrorBoundary";
 
 const App = () => {
+  const { todoLists, deleteTodo, toggleTodoStatus, addNewTodo, updateTodo } =
+    useTodo();
   return (
     <ErrorBoundary>
       <BrowserRouter>
@@ -15,8 +18,30 @@ const App = () => {
           <h1>Todo アプリ</h1>
           <Routes>
             <Route path="/" element={<Top />}></Route>
-            <Route path="/uncompleted" element={<UncompletedTodo />}></Route>
-            <Route path="/completed" element={<CompletedTodo />}></Route>
+            <Route
+              path="/uncompleted"
+              element={
+                <UncompletedTodo
+                  todoLists={todoLists}
+                  deleteTodo={deleteTodo}
+                  toggleTodoStatus={toggleTodoStatus}
+                  addNewTodo={addNewTodo}
+                  updateTodo={updateTodo}
+                />
+              }
+            ></Route>
+            <Route
+              path="/completed"
+              element={
+                <CompletedTodo
+                  todoLists={todoLists}
+                  deleteTodo={deleteTodo}
+                  toggleTodoStatus={toggleTodoStatus}
+                  addNewTodo={addNewTodo}
+                  updateTodo={updateTodo}
+                />
+              }
+            ></Route>
             <Route path="*" element={<NotFound />}></Route>
           </Routes>
         </div>

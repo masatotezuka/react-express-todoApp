@@ -5,10 +5,13 @@ import { useTodo } from "../../hooks/hooks";
 import { TodoTabLists } from "./TodoTabLists";
 import { Link } from "react-router-dom";
 
-export const CompletedTodo = () => {
-  const { todoLists, deleteTodo, toggleTodoStatus, addNewTodo, updateTodo } =
-    useTodo();
-
+export const CompletedTodo = ({
+  todoLists,
+  deleteTodo,
+  toggleTodoStatus,
+  addNewTodo,
+  updateTodo,
+}) => {
   const completedTodoLists = todoLists.filter(
     (todoList) => todoList.isComplete === true
   );
