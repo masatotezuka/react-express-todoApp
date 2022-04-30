@@ -11,7 +11,6 @@ import { ErrorBoundary } from "../../ErrorBoundary";
 const App = () => {
   const { todoLists, deleteTodo, toggleTodoStatus, addNewTodo, updateTodo } =
     useTodo();
-  console.log("App");
   const unCompletedTodoLists = todoLists.filter(
     (todoList) => todoList.isComplete === false
   );

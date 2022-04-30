@@ -1,9 +1,9 @@
 import React from "react";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { ControlledCheckbox } from "../compnents/CheckboxComponents";
+import { ControlledCheckbox } from "../components/CheckboxComponents";
 import TableCell from "@mui/material/TableCell";
-import { UpdateDialog } from "../compnents/UpdateDialog";
+import { UpdateDialog } from "../components/UpdateDialog";
 import moment from "moment";
 
 export const TableCells = React.memo(

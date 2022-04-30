@@ -10,6 +10,7 @@ const todoItem = {
   async fetchAllTodo(req, res) {
     try {
       const results = await getAllTodoItems();
+      console.log(results);
       return res.status(200).json(results);
     } catch (error) {
       res.status(500).send(error);
@@ -18,13 +19,13 @@ const todoItem = {
   async createTodo(req, res) {
     try {
       const newTodoData = req.body[0];
-      await TodoLists.create({
+      const results = await TodoLists.create({
         todoTitle: newTodoData.title,
         description: newTodoData.description,
         deadline: newTodoData.deadline,
         isComplete: false,
       });
-      res.status(200);
+      res.status(200).json(results);
     } catch (error) {
       res.status(500).send(error);
     }
@@ -53,6 +54,7 @@ const todoItem = {
         { where: { id: updateTodoId } }
       );
       const results = await getAllTodoItems();
+      console.log(results);
       await res.status(200).json(results);
     } catch (error) {
       res.status(500).send(error);
