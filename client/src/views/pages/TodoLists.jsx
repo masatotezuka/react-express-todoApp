@@ -8,7 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { TableCells } from "./TodoTables";
 
-export const TodoListsTables = React.memo(
+export const TodoLists = React.memo(
   ({ todoLists, deleteTodo, toggleTodoStatus, updateTodo }) => {
     return (
       <TableContainer component={Paper}>

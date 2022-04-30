@@ -1,3 +1,14 @@
+a {
+  padding-left: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  text-decoration: none;
+  color: gray;
+  &:hover {
+    color: blue;
+  }
+}
+
 .App {
   text-align: center;
   .input-box {
@@ -15,9 +26,25 @@
   }
 }
 
+.todo-tabs-wrapper {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  .todo-tabs-container {
+    display: flex;
+    justify-content: center;
+    a {
+      padding-left: 10px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+}
+
 .todo-container {
   justify-content: center;
   display: flex;
+  margin-bottom: 20px;
 }
 .todo-table {
   width: 70%;

@@ -1,82 +1,91 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
-import { useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
+import * as todoApi from "../api/todo";
 
 const apiUrl = "http://localhost:8000";
 
 export const useTodo = () => {
-  const initialTodoLists = [
-    { id: "", todoTitle: "", desctiption: "", deadline: "" },
-  ];
+  const initialTodoLists = [];
+  console.log("hooks");
   const [todoLists, setTodoLists] = useState(initialTodoLists);
+
   //データ取得
   useEffect(() => {
-    const getFetchAllDate = async () => {
-      try {
-        console.log("useEffect");
-        const response = await fetch(`${apiUrl}/api/todoItem`);
-        const jsondata = await response.json();
-        await setTodoLists(jsondata);
-      } catch (error) {
-        console.log(error);
-      }
+    const getAllTodo = async () => {
+      const response = await todoApi.getAllTodoData();
+      setTodoLists(response);
     };
-    getFetchAllDate();
+    getAllTodo();
   }, []);
 
   //ステータス変更
   const toggleTodoStatus = useCallback(async (event, id) => {
-    console.log("toggleStatus");
-    console.log(event.target.checked);
-    const updateTodoStatus = [{ todoId: id, todoStatus: event.target.checked }];
-    const response = await axios.put(
-      `${apiUrl}/api/todoItem/todoStatus`,
-      updateTodoStatus
-    );
-    await setTodoLists(response.data);
+    try {
+      const updateTodoStatus = [
+        { todoId: id, todoStatus: event.target.checked },
+      ];
+      const response = await todoApi.changeTodoStatus(updateTodoStatus);
+      setTodoLists(response);
+    } catch (error) {
+      console.log(error);
+    }
   }, []);
+
   //削除
-  const deleteTodo = async (todoId) => {
-    const todoIdData = { id: todoId };
-    console.log(todoIdData);
-    await axios
-      .delete(`${apiUrl}/api/todoItem`, {
-        data: todoIdData,
-      })
-      .then((res) => {
-        const deleteId = res.data.deleteId;
+  const deleteTodo = useCallback(
+    async (todoId) => {
+      try {
+        const response = await todoApi.deleteTodo({ id: todoId });
+        const deleteId = response.deleteId;
+        console.log(todoLists);
         const newTodoLists = todoLists.filter((item) => deleteId !== item.id);
+        console.log(newTodoLists);
         setTodoLists(newTodoLists);
-      });
-  };
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    [todoLists]
+  );
+
   //新規追加
-  const addNewTodo = async (inputTitle, inputDescription, value) => {
-    console.log(inputTitle.current.value);
-    const newTodo = [
-      {
-        title: inputTitle.current.value,
-        description: inputDescription.current.value,
-        deadline: value,
-      },
-    ];
-    await axios.post(`${apiUrl}/api/todoItem`, newTodo);
-  };
+  const addNewTodo = useCallback(
+    async (inputTitle, inputDescription, value) => {
+      try {
+        const newTodo = [
+          {
+            title: inputTitle.current.value,
+            description: inputDescription.current.value,
+            deadline: value,
+          },
+        ];
+        const response = await todoApi.addTodo(newTodo);
+        console.log(response.data);
+        setTodoLists([...todoLists, response.data]);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    [todoLists]
+  );
 
   //編集
-  const updateTodo = async (todoId, updateTitle, updateDescription, value) => {
-    console.log("updateTodo");
-    const updateTodoItem = [
-      {
-        id: todoId,
-        title: updateTitle,
-        description: updateDescription,
-        deadline: value,
-      },
-    ];
-    const response = await axios.put(`${apiUrl}/api/todoItem`, updateTodoItem);
-    console.log(response);
-    setTodoLists(response.data);
-  };
+  const updateTodo = useCallback(
+    async (todoId, updateTitle, updateDescription, value) => {
+      try {
+        const updateTodoItem = [
+          {
+            id: todoId,
+            title: updateTitle,
+            description: updateDescription,
+            deadline: value,
+          },
+        ];
+        const response = await todoApi.updateTodo(updateTodoItem);
+        setTodoLists(response.data);
+      } catch (error) {}
+    },
+    []
+  );
 
   return { todoLists, deleteTodo, toggleTodoStatus, addNewTodo, updateTodo };
 };

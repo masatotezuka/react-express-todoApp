@@ -7,30 +7,30 @@ const getAllTodoItems = async () => {
 };
 
 const todoItem = {
-  async fetchAllTodo(req, res, next) {
+  async fetchAllTodo(req, res) {
     try {
       const results = await getAllTodoItems();
+      console.log(results);
       return res.status(200).json(results);
     } catch (error) {
       res.status(500).send(error);
     }
   },
-  async createTodo(req, res, next) {
+  async createTodo(req, res) {
     try {
-      console.log(req.body);
       const newTodoData = req.body[0];
-      await TodoLists.create({
+      const results = await TodoLists.create({
         todoTitle: newTodoData.title,
         description: newTodoData.description,
         deadline: newTodoData.deadline,
         isComplete: false,
       });
-      res.status(200);
+      res.status(200).json(results);
     } catch (error) {
       res.status(500).send(error);
     }
   },
-  async deleteTodo(req, res, next) {
+  async deleteTodo(req, res) {
     try {
       const todoId = req.body.id;
       console.log(todoId);
@@ -44,7 +44,7 @@ const todoItem = {
       res.status(500).send(error);
     }
   },
-  async changeTodoStatus(req, res, next) {
+  async changeTodoStatus(req, res) {
     try {
       const updateTodoId = req.body[0].todoId;
       const updateTodoStatus = req.body[0].todoStatus;
@@ -54,12 +54,13 @@ const todoItem = {
         { where: { id: updateTodoId } }
       );
       const results = await getAllTodoItems();
+      console.log(results);
       await res.status(200).json(results);
     } catch (error) {
       res.status(500).send(error);
     }
   },
-  async changeTodoItem(req, res, next) {
+  async changeTodoItem(req, res) {
     try {
       const updateTodo = req.body[0];
       await TodoLists.update(
